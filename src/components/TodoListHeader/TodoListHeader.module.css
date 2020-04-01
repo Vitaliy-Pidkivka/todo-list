@@ -1,9 +1,14 @@
-.todoList__footer {
-    background: #a6a7a3;
-    padding: 20px;
+.todoList__header {
+    background-color: #cbcbcb;
 }
 
-.footer__buttons {
+.header__input {
+    padding: 6px 15px;
+    border-radius: 4px;
+    border: 1px solid gray;
+}
+
+.header__buttons {
     border-radius: 4px;
     cursor: pointer;
     border: none;
@@ -16,10 +21,10 @@
     padding-right: 15px;
 }
 
-.footer__buttons:active {
+.header__buttons:active {
     background-color: #edd8aa;
 }
 
-.footer__buttons:focus {
+.header__buttons:focus {
     outline: none;
 }

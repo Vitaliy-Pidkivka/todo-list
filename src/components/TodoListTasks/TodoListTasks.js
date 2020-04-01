@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './TodoListTasks.module.css';
 
 class TodolistTasks extends React.Component {
     render = () => {
         return (
-            <div className="todoList-tasks">
+            <div className={styles.TodoList__tasks}>
                 <div className="todoList-task">
                     <input type="checkbox" checked={true}/>
                     <span>CSS</span>
