@@ -5,9 +5,9 @@ class TodoListFooter extends React.Component {
     render = () => {
         return (
             <div className={totoListFooterStyles.todoList__footer}>
-                <button>All</button>
-                <button>Completed</button>
-                <button>Active</button>
+                <button className={totoListFooterStyles.footer__buttons}>All</button>
+                <button className={totoListFooterStyles.footer__buttons}>Completed</button>
+                <button className={totoListFooterStyles.footer__buttons}>Active</button>
             </div>
         );
     }

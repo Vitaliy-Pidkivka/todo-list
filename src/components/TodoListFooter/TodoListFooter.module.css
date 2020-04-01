@@ -1,4 +1,21 @@
 .todoList__footer{
-    background: red;
+    background: #242ac4;
     padding: 20px;
+    border-radius: 4px;
+}
+.footer__buttons{
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    background-color: #fffe0b;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.footer__buttons:active{
+    background-color: #ffd500;
 }
