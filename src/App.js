@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TodoListFooter from "./components/TodoListFooter/TodoListFooter";
-import TodolistTasks from "./components/TodoListTasks/TodoListTasks";
+import TodoListTasks from "./components/TodoListTasks/TodoListTasks";
 import TodoListHeader from "./components/TodoListHeader/TodoListHeader";
 
 class App extends React.Component {
@@ -10,7 +10,7 @@ class App extends React.Component {
             <div className="App">
                 <div className="todoList">
                     <TodoListHeader/>
-                    <TodolistTasks/>
+                    <TodoListTasks/>
                     <TodoListFooter/>
                 </div>
             </div>
