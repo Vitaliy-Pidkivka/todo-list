@@ -1,13 +1,16 @@
 import React from 'react';
-import totoListFooterStyles from './TodoListFooter.module.css';
+import styles from './TodoListFooter.module.css';
 
 class TodoListFooter extends React.Component {
-    render = () => {
+    render = (props) => {
+        const  classForAll = this.props.filterValue === "All" ? "footer__button-active" : "";
+        const  classForCompleted = this.props.filterValue === "Completed" ? "footer__button-active" : "";
+        const  classForActive = this.props.filterValue === "Active" ? "footer__button-active" : "";
         return (
-            <div className={totoListFooterStyles.todoList__footer}>
-                <button className={totoListFooterStyles.footer__buttons}>All</button>
-                <button className={totoListFooterStyles.footer__buttons}>Completed</button>
-                <button className={totoListFooterStyles.footer__buttons}>Active</button>
+            <div className={styles.todoList__footer}>
+                <button className={`${styles.footer__button} ${styles[classForAll]}`}>All</button>
+                <button className={`${styles.footer__button} ${styles[classForCompleted]}`}>Completed</button>
+                <button className={`${styles.footer__button} ${styles[classForActive]}`}>Active</button>
             </div>
         );
     }

@@ -3,7 +3,7 @@
     padding: 20px;
 }
 
-.footer__buttons {
+.footer__button {
     border-radius: 4px;
     cursor: pointer;
     border: none;
@@ -14,6 +14,11 @@
     padding-bottom: 6px;
     padding-left: 15px;
     padding-right: 15px;
+
+}
+.footer__button-active {
+    background-color: #05afff;
+    box-shadow: 0 0 2px #05afff;
 }
 
 .footer__buttons:active {
