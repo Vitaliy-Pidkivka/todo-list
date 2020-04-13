@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './TodoListTasks.module.css';
 import TodoListTask from "./TodoListTask/TodoListTask";
-
 class TodolistTasks extends React.Component {
+
     render = (props) => {
 
-        const taskElements = this.props.tasks.map(item => <TodoListTask title={item.title} isDone={item.isDone} priority={item.priority} key={item.key}/>);
+        const taskElements = this.props.tasks.map((item,index) =>(
+
+        <TodoListTask {...item} key={index}/>));
         return (
             <div className={styles.TodoList__tasks}>
                {taskElements}
