@@ -1,37 +1,67 @@
 import React from 'react';
-import styles from './TodoListHeader.module.css';
+import styles from './TodoListHeader.module.scss';
 
 class TodoListHeader extends React.Component {
     constructor(props) {
         super(props)
-        this.newTaskTitleRef = React.createRef();
+    }
+
+    state = {
+        error: false,
+        title: ''
     }
 
     onAddTaskClick = (e) => {
-        let newTaskText = this.newTaskTitleRef.current.value;
-        this.newTaskTitleRef.current.value = '';
+        let taskText = this.state.title;
+        this.setState({
+            title: ''
+        })
         let priority;
         let text;
-        if (newTaskText.includes('::')) {
-            let index = newTaskText.lastIndexOf('::');
-            text = newTaskText.slice(0, index);
-            priority = newTaskText.substring(newTaskText.length, index+2)
-            console.log(text,priority)
+        if (taskText.includes('::')) {
+            let index = taskText.lastIndexOf('::');
+            text = taskText.slice(0, index);
+            priority = taskText.substring(taskText.length, index + 2)
         } else {
-            text = newTaskText
+            text = taskText
             priority = 'low'
-            console.log(text,priority)
         }
-        this.props.addNewTask(text, priority)
+        if (taskText === '') {
+            this.setState({
+                error: true
+            })
+            alert('Please write the task')
+        } else {
+            this.props.addNewTask(text, priority)
+            this.setState({
+                error: false
+            })
+        }
     }
-    render = (props) => {
-
+    onKeyPressInputValue=(e)=>{
+        if(e.key === 'Enter'){
+            this.onAddTaskClick()
+        }
+    }
+    onChangeInputValue=(e)=>{
+        let newValue = e.target.value;
+        this.setState({
+            title: newValue
+        })
+    }
+    render = () => {
         return (
             <div className={styles.todoList__header}>
                 <h3 className="todoList-header__title">What to Learn</h3>
+                <div className="todoList-header__title">Example: <br/> <h4>task::priority</h4></div>
                 <div className="todoList-newTaskForm">
-                    <input ref={this.newTaskTitleRef} className={styles.header__input} type="text"
-                           placeholder="New task name"/>
+                    <input className={`${styles.header__input} ${this.state.error && styles.error}`}
+                           type="text"
+                           placeholder="New task name"
+                           value={this.state.title}
+                           onKeyPress={this.onKeyPressInputValue}
+                           onChange={this.onChangeInputValue}
+                    />
                     <button onClick={this.onAddTaskClick} className={styles.header__buttons}>Add</button>
                 </div>
             </div>

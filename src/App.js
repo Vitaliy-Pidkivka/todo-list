@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import TodoListFooter from "./components/TodoListFooter/TodoListFooter";
 import TodoListTasks from "./components/TodoListTasks/TodoListTasks";
 import TodoListHeader from "./components/TodoListHeader/TodoListHeader";
-import styles from "./components/TodoListHeader/TodoListHeader.module.css";
+import styles from "./components/TodoListHeader/TodoListHeader.module.scss";
 
 class App extends React.Component {
 
@@ -22,16 +22,11 @@ class App extends React.Component {
         filterValue: 'All'
     }
     addNewTask = (newText, priority) => {
-
         let newTask = {title: newText, isDone: false, priority: priority}
-        if (!newText) {
-            alert("Please write the task name!")
-        } else {
-            let newTasks = [...this.state.tasks, newTask]
-            this.setState({
-                tasks: newTasks
-            })
-        }
+        let newTasks = [...this.state.tasks, newTask]
+        this.setState({
+            tasks: newTasks
+        })
     }
     onTaskChangeStatus = (task, isDone) => {
 

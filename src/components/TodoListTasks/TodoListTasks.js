@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './TodoListTasks.module.css';
+import styles from './TodoListTasks.module.scss';
 import TodoListTask from "./TodoListTask/TodoListTask";
 
 
