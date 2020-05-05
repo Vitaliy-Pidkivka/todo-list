@@ -6,9 +6,11 @@ import TodoListTask from "./TodoListTask/TodoListTask";
 
 class TodolistTasks extends React.Component {
 
-    render = (props) => {
+    render = () => {
         const taskElements = this.props.tasks.map((item,index) =>(
-        <TodoListTask  task={item} onTaskChangeStatus={this.props.onTaskChangeStatus} key={index}/>));
+        <TodoListTask  task={item}
+                       changeTask={this.props.changeTask}
+                       key={item.id}/>));
         return (
             <div className={styles.TodoList__tasks}>
                {taskElements}
