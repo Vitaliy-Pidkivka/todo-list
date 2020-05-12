@@ -3,7 +3,6 @@ import './App.scss';
 import TodoListFooter from "./components/TodoListFooter/TodoListFooter";
 import TodoListTasks from "./components/TodoListTasks/TodoListTasks";
 import TodoListHeader from "./components/TodoListHeader/TodoListHeader";
-import styles from "./components/TodoListHeader/TodoListHeader.module.scss";
 
 class App extends React.Component {
 
