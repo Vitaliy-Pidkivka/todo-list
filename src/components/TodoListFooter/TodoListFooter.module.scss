@@ -1,6 +1,8 @@
 .todoList__footer {
     background: #a6a7a3;
     padding: 20px;
+    min-height: 77px;
+
 }
 
 .footer__button {
@@ -14,7 +16,7 @@
     padding-bottom: 6px;
     padding-left: 15px;
     padding-right: 15px;
-
+    margin-bottom: 10px;
 }
 .footer__button-active {
     background-color: #05afff;

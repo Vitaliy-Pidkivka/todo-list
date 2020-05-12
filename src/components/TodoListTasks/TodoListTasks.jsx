@@ -4,7 +4,7 @@ import TodoListTask from "./TodoListTask/TodoListTask";
 
 
 
-class TodolistTasks extends React.Component {
+class TodoListTasks extends React.Component {
 
     render = () => {
         const taskElements = this.props.tasks.map((item,index) =>(
@@ -19,4 +19,4 @@ class TodolistTasks extends React.Component {
     }
 }
 
-export default TodolistTasks;
+export default TodoListTasks;

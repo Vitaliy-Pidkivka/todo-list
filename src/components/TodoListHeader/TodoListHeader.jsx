@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './TodoListHeader.module.scss';
+import AddNewItemForm from "../AddNewItemForm/AddNewItemForm";
 
 class TodoListHeader extends React.Component {
     constructor(props) {
@@ -8,13 +9,13 @@ class TodoListHeader extends React.Component {
 
     state = {
         error: false,
-        title: ''
+        value: ''
     }
 
     onAddTaskClick = (e) => {
-        let taskText = this.state.title;
+        let taskText = this.state.value;
         this.setState({
-            title: ''
+            value: ''
         })
         let priority;
         let text;
@@ -38,32 +39,29 @@ class TodoListHeader extends React.Component {
             })
         }
     }
-    onKeyPressInputValue=(e)=>{
-        if(e.key === 'Enter'){
+    onKeyPressInputValue = (e) => {
+        if (e.key === 'Enter') {
             this.onAddTaskClick()
         }
     }
-    onChangeInputValue=(e)=>{
-        let newValue = e.target.value;
+    onChangeInputValue = (value) => {
+        let newValue = value;
         this.setState({
-            title: newValue
+            value: newValue
         })
     }
     render = () => {
         return (
             <div className={styles.todoList__header}>
-                <h3 className="todoList-header__title">What to Learn</h3>
-                <div className="todoList-header__title">Example: <br/> <h4>task::priority</h4></div>
-                <div className="todoList-newTaskForm">
-                    <input className={`${styles.header__input} ${this.state.error && styles.error}`}
-                           type="text"
-                           placeholder="New task name"
-                           value={this.state.title}
-                           onKeyPress={this.onKeyPressInputValue}
-                           onChange={this.onChangeInputValue}
-                    />
-                    <button onClick={this.onAddTaskClick} className={styles.header__buttons}>Add</button>
-                </div>
+                <h1 className="todoList-header__title">{this.props.title}</h1>
+                <div className={styles.todoList__example} >Example:  <span >task::priority</span></div>
+                <AddNewItemForm onClick={this.onAddTaskClick}
+                                onChange={this.onChangeInputValue}
+                                onKeyPress={this.onKeyPressInputValue}
+                                value={this.state.value}
+                                placeholder='Add new task'
+                                error={this.state.error}
+                />
             </div>
         );
     }

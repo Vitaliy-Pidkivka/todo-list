@@ -1,0 +1,37 @@
+.addNewItemForm {
+  &__input{
+    padding: 6px 15px;
+    border-radius: 4px;
+    border: 1px solid gray;
+
+    &.error {
+      border-color: #d41641;
+      box-shadow: 1px 1px 4px red, -1px -1px 4px red, -1px 1px 4px red, 1px -1px 4px red;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.addNewItemForm__buttons {
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  background-color: #f9e5b6;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.addNewItemForm__buttons:active {
+  background-color: #edd8aa;
+}
+
+.addNewItemForm__buttons:focus {
+  outline: none;
+}

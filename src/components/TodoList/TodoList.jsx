@@ -1,37 +1,32 @@
 import React from 'react';
-import './App.scss';
-import TodoListFooter from "./components/TodoListFooter/TodoListFooter";
-import TodoListTasks from "./components/TodoListTasks/TodoListTasks";
-import TodoListHeader from "./components/TodoListHeader/TodoListHeader";
+import TodoListFooter from "../TodoListFooter/TodoListFooter";
+import TodoListTasks from "../TodoListTasks/TodoListTasks";
+import TodoListHeader from "../TodoListHeader/TodoListHeader";
 
-class App extends React.Component {
+class TodoList extends React.Component {
 
     constructor(props) {
         super(props)
-        this.newTaskTitleRef = React.createRef();
     }
 
     componentDidMount() {
         this.restoreState();
     }
-
     saveState = () => {
         let stateAsString = JSON.stringify(this.state)
-        localStorage.setItem('our-state', stateAsString)
+        localStorage.setItem(`our-state ${this.props.id}`, stateAsString)
     }
     restoreState = () => {
         let state = {
             tasks: [],
             filterValue: 'All'
         }
-        let stateAsString = localStorage.getItem('our-state')
+        let stateAsString = localStorage.getItem(`our-state ${this.props.id}`)
         if (stateAsString != null) {
             state = JSON.parse(stateAsString)
         }
-        if( state.tasks.length !=0) {
-            this.newTaskId = state.tasks.reduce((acc, i) => {
-                return acc = i.id + 1
-            })
+        if( state.tasks.length != 0) {
+            this.newTaskId = state.tasks.length
         } else {
             this.newTaskId = 0
         }
@@ -45,11 +40,9 @@ class App extends React.Component {
     addNewTask = (newText, priority) => {
         let newTask = {id: this.newTaskId, title: newText, isDone: false, priority: priority}
         this.newTaskId++
-        let newTasks = [...this.state.tasks, newTask]
         this.setState({
-            tasks: newTasks
+            tasks: [...this.state.tasks, newTask]
         },() => this.saveState())
-
     }
     changeTask = (taskId, obj) => {
         let newTasks = this.state.tasks.map(task => {
@@ -68,11 +61,9 @@ class App extends React.Component {
         this.setState({filterValue: newFilterValue},() => this.saveState())
     }
     render = () => {
-        window.state = this.state
         return (
-            <div className="App">
                 <div className="todoList">
-                    <TodoListHeader addNewTask={this.addNewTask}/>
+                    <TodoListHeader title={this.props.title} addNewTask={this.addNewTask}/>
                     <TodoListTasks
                         tasks={this.state.tasks.filter(task => {
                             switch (this.state.filterValue) {
@@ -91,12 +82,11 @@ class App extends React.Component {
                     <TodoListFooter filterValue={this.state.filterValue}
                                     changeFilter={this.changeFilter}/>
                 </div>
-            </div>
         );
     }
 }
 
 
 
-export default App;
+export default TodoList;
 
