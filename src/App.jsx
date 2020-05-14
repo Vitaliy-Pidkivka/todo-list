@@ -22,7 +22,11 @@ class App extends React.Component {
             state = JSON.parse(stateAsString)
         }
         if (state.todoLists.length !== 0) {
-            this.newTodoListId = state.todoLists.length
+            state.todoLists.map(todo => {
+                if(todo.id > this.newTodoListId){
+                    this.newTodoListId = todo.id
+                }
+            })
         }
         else {
             this.newTodoListId = 0
