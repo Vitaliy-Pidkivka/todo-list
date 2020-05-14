@@ -23,7 +23,8 @@ class App extends React.Component {
         }
         if (state.todoLists.length !== 0) {
             this.newTodoListId = state.todoLists.length
-        } else {
+        }
+        else {
             this.newTodoListId = 0
         }
         this.setState(state);

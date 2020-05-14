@@ -8,6 +8,7 @@ class TodoList extends React.Component {
     componentDidMount() {
         this.restoreState();
     }
+
     saveState = () => {
         let stateAsString = JSON.stringify(this.state)
         localStorage.setItem(`our-state ${this.props.id}`, stateAsString)
@@ -21,8 +22,12 @@ class TodoList extends React.Component {
         if (stateAsString != null) {
             state = JSON.parse(stateAsString)
         }
-        if( state.tasks.length !== 0) {
-            this.newTaskId = state.tasks.length
+        if (state.tasks.length !== 0) {
+            state.tasks.map(task => {
+                if(task.id >= this.newTaskId){
+                    this.newTaskId = task.id + 1
+                }
+            })
         } else {
             this.newTaskId = 0
         }
@@ -38,7 +43,7 @@ class TodoList extends React.Component {
         this.newTaskId++
         this.setState({
             tasks: [...this.state.tasks, newTask]
-        },() => this.saveState())
+        }, () => this.saveState())
     }
     changeTask = (taskId, obj) => {
         let newTasks = this.state.tasks.map(task => {
@@ -50,49 +55,50 @@ class TodoList extends React.Component {
         })
         this.setState({
             tasks: newTasks
-        },() => this.saveState())
+        }, () => this.saveState())
 
     }
     changeFilter = (newFilterValue) => {
-        this.setState({filterValue: newFilterValue},() => this.saveState())
+        this.setState({filterValue: newFilterValue}, () => this.saveState())
     }
-    removeTask = (taskId) =>{
+    removeTask = (taskId) => {
         let newTasks = this.state.tasks.filter(task => task.id !== taskId)
         this.setState({
             tasks: newTasks
-        },()=>{this.saveState()})
+        }, () => {
+            this.saveState()
+        })
     }
     render = () => {
         return (
-                <div className="todoList">
-                    <TodoListHeader title={this.props.title}
-                                    addNewTask={this.addNewTask}
-                                    removeTodoList={this.props.removeTodoList}
-                                    todolistId={this.props.id}
-                    />
-                    <TodoListTasks
-                        tasks={this.state.tasks.filter(task => {
-                            switch (this.state.filterValue) {
-                                case 'All':
-                                    return true
-                                case 'Active':
-                                    return !task.isDone
-                                case 'Completed':
-                                    return task.isDone
-                                default:
-                                    return true
-                            }
-                        })}
-                        changeTask={this.changeTask}
-                        removeTask={this.removeTask}
-                    />
-                    <TodoListFooter filterValue={this.state.filterValue}
-                                    changeFilter={this.changeFilter}/>
-                </div>
+            <div className="todoList">
+                <TodoListHeader title={this.props.title}
+                                addNewTask={this.addNewTask}
+                                removeTodoList={this.props.removeTodoList}
+                                todolistId={this.props.id}
+                />
+                <TodoListTasks
+                    tasks={this.state.tasks.filter(task => {
+                        switch (this.state.filterValue) {
+                            case 'All':
+                                return true
+                            case 'Active':
+                                return !task.isDone
+                            case 'Completed':
+                                return task.isDone
+                            default:
+                                return true
+                        }
+                    })}
+                    changeTask={this.changeTask}
+                    removeTask={this.removeTask}
+                />
+                <TodoListFooter filterValue={this.state.filterValue}
+                                changeFilter={this.changeFilter}/>
+            </div>
         );
     }
 }
-
 
 
 export default TodoList;
