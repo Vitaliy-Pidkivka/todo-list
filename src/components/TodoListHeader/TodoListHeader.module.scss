@@ -1,5 +1,6 @@
 .todoList__header {
   background-color: #cbcbcb;
+  flex-grow: 1;
 }
 
 .todoList__example {
@@ -8,6 +9,14 @@
   span {
     font-weight: bold;
     font-size: 12px;
+  }
+}
+.remove-task{
+  font-size: 30px;
+  right: 20px;
+  top: 20px;
+  &:hover{
+    top: 22px;
   }
 }
 

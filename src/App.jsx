@@ -49,6 +49,12 @@ class App extends React.Component {
             this.addNewTodoList()
         }
     }
+    removeTodoList =(todoListId) =>{
+        let newTodoLists = this.state.todoLists.filter(todo => todo.id !== todoListId)
+        this.setState({
+            todoLists: newTodoLists
+        },()=>{this.saveState()})
+    }
     render = () => {
         window.state = this.state
         return (
@@ -58,11 +64,15 @@ class App extends React.Component {
                                 onKeyPress={this.onKeyPressInputValue}
                                 placeholder='Create new TodoList'
                                 value={this.state.newTodoListName}
+
                                />
                                <div className='todoLists'>
                                    {this.state.todoLists.map(tl => <TodoList id={tl.id}
                                                                              title={tl.title}
-                                                                             key={tl.id}/>)}
+                                                                             key={tl.id}
+                                                                             removeTodoList={this.removeTodoList}
+                                   />)}
+
                                </div>
             </div>
         );

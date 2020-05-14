@@ -1,5 +1,6 @@
 import styles from "./AddNewItemForm.module.scss";
 import React from "react";
+import Button from "../shared/Button/Button";
 
 class AddNewItemForm extends React.Component {
     onChangeInputValue = (e) => {
@@ -17,7 +18,8 @@ class AddNewItemForm extends React.Component {
                        onKeyPress={this.props.onKeyPress}
                        onChange={this.onChangeInputValue}
                 />
-                <button onClick={this.props.onClick} className={styles.addNewItemForm__buttons}>Add</button>
+                <Button value={'Add'} onClick={this.props.onClick}/>
+
             </div>
         )
     }

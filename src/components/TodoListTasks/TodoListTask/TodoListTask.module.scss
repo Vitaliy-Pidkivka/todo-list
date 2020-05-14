@@ -1,6 +1,13 @@
-.checkbox{
-    cursor: pointer;
+.task {
+  position: relative;
+  padding-right: 25px;
 }
-.done{
-    opacity: .6;
+
+.checkbox {
+  cursor: pointer;
 }
+
+.done {
+  opacity: .6;
+}
+

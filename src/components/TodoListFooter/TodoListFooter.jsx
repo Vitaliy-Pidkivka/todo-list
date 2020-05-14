@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './TodoListFooter.module.scss';
+import Button from "../shared/Button/Button";
 
 class TodoListFooter extends React.Component {
 
-    state={
+    state = {
         isHidden: false,
     }
 
@@ -33,29 +34,24 @@ class TodoListFooter extends React.Component {
 
 
     render = () => {
-        const classForAll = this.props.filterValue === "All" ? "footer__button-active" : "";
-        const classForCompleted = this.props.filterValue === "Completed" ? "footer__button-active" : "";
-        const classForActive = this.props.filterValue === "Active" ? "footer__button-active" : "";
         return (
             <div className={styles.todoList__footer}>
-                { !this.state.isHidden  &&  <>
-                    <button onClick={this.onAllFilterClick}
-                            className={`${styles.footer__button} ${styles[classForAll]}`}>
-                        All
-                    </button>
-                    <button onClick={this.onCompletedFilterClick}
-                            className={`${styles.footer__button} ${styles[classForCompleted]}`}>
-                        Completed
-                    </button>
-                    <button onClick={this.onActiveFilterClick } className={`${styles.footer__button} ${styles[classForActive]}`}>
-                        Active
-                    </button>
+                {!this.state.isHidden && <>
+                    <Button onClick={this.onAllFilterClick}
+                            value={'All'}
+                            active={this.props.filterValue === "All"}/>
+                    <Button onClick={this.onCompletedFilterClick}
+                            value={'Completed'}
+                            active={this.props.filterValue === "Completed"}/>
+                    <Button onClick={this.onActiveFilterClick}
+                            value={'Active'}
+                            active={this.props.filterValue === "Active"}/>
+
                 </>
                 }
-                <button onClick={this.state.isHidden ? this.onShowFiltersClick : this.onHideFiltersClick}
-                        className={`${styles.footer__button}`}>
-                    {this.state.isHidden ? 'Show' : 'Hide'}
-                </button>
+                <Button onClick={this.state.isHidden ? this.onShowFiltersClick : this.onHideFiltersClick}
+                        value={ this.state.isHidden ? 'Show' : 'Hide'}
+                        active={this.props.filterValue === "hide"}/>
             </div>
         );
     }

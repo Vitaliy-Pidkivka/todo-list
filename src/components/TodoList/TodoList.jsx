@@ -5,10 +5,6 @@ import TodoListHeader from "../TodoListHeader/TodoListHeader";
 
 class TodoList extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         this.restoreState();
     }
@@ -25,7 +21,7 @@ class TodoList extends React.Component {
         if (stateAsString != null) {
             state = JSON.parse(stateAsString)
         }
-        if( state.tasks.length != 0) {
+        if( state.tasks.length !== 0) {
             this.newTaskId = state.tasks.length
         } else {
             this.newTaskId = 0
@@ -60,10 +56,20 @@ class TodoList extends React.Component {
     changeFilter = (newFilterValue) => {
         this.setState({filterValue: newFilterValue},() => this.saveState())
     }
+    removeTask = (taskId) =>{
+        let newTasks = this.state.tasks.filter(task => task.id !== taskId)
+        this.setState({
+            tasks: newTasks
+        },()=>{this.saveState()})
+    }
     render = () => {
         return (
                 <div className="todoList">
-                    <TodoListHeader title={this.props.title} addNewTask={this.addNewTask}/>
+                    <TodoListHeader title={this.props.title}
+                                    addNewTask={this.addNewTask}
+                                    removeTodoList={this.props.removeTodoList}
+                                    todolistId={this.props.id}
+                    />
                     <TodoListTasks
                         tasks={this.state.tasks.filter(task => {
                             switch (this.state.filterValue) {
@@ -78,6 +84,7 @@ class TodoList extends React.Component {
                             }
                         })}
                         changeTask={this.changeTask}
+                        removeTask={this.removeTask}
                     />
                     <TodoListFooter filterValue={this.state.filterValue}
                                     changeFilter={this.changeFilter}/>

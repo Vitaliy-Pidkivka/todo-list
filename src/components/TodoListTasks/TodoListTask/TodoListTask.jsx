@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './TodoListTask.module.scss';
+import RemoveBtn from "../../shared/RemoveBtn/RemoveBtn";
+
+
 
 class TodoListTask extends React.Component {
     state = {
@@ -8,23 +11,22 @@ class TodoListTask extends React.Component {
     onIsDoneChanged = (e) => {
         this.props.changeTask(this.props.task.id, {isDone: e.currentTarget.checked})
     }
-    activateEditMode = (e) =>{
-        this.setState({
-            editMode: true,
-        })
+    activateEditMode = () =>{
+        this.setState({ editMode: true,   })
     }
-    disableEditMode = (e) =>{
-        this.setState({
-            editMode: false,
-        })
+    disableEditMode = () =>{
+        this.setState({   editMode: false,   })
     }
     onTitleChanged =(e)=>{
         this.props.changeTask(this.props.task.id, {title:e.currentTarget.value})
     }
+    onRemoveTask = () =>{
+        this.props.removeTask(this.props.task.id)
+    }
     render = () => {
 
         return (
-            <div className={` ${this.props.task.isDone && styles.done}` }
+            <div className={`${styles.task} ${this.props.task.isDone && styles.done}` }
            onDoubleClick={this.activateEditMode}
             >
                 <div>
@@ -33,7 +35,9 @@ class TodoListTask extends React.Component {
                                onChange={this.onIsDoneChanged}
                                type="checkbox"
                                checked={this.props.task.isDone}/>
-                        <span>{this.props.task.id + 1}: {this.props.task.title}</span><span> - priority: {this.props.task.priority}</span>
+                        <span>{this.props.task.id +
+                        1}: {this.props.task.title}</span><span> - priority: {this.props.task.priority}</span>
+                        <RemoveBtn onClick={this.onRemoveTask}/>
                     </div>}
                     {this.state.editMode &&  <div>
                         {this.props.task.id + 1}: <input type="text"

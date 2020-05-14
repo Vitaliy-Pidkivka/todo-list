@@ -1,18 +1,15 @@
 import React from 'react';
 import styles from './TodoListHeader.module.scss';
 import AddNewItemForm from "../AddNewItemForm/AddNewItemForm";
+import RemoveBtn from "../shared/RemoveBtn/RemoveBtn";
 
 class TodoListHeader extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     state = {
         error: false,
         value: ''
     }
 
-    onAddTaskClick = (e) => {
+    onAddTaskClick = () => {
         let taskText = this.state.value;
         this.setState({
             value: ''
@@ -31,7 +28,7 @@ class TodoListHeader extends React.Component {
             this.setState({
                 error: true
             })
-            alert('Please write the task')
+            alert('Please write the task name')
         } else {
             this.props.addNewTask(text, priority)
             this.setState({
@@ -45,14 +42,17 @@ class TodoListHeader extends React.Component {
         }
     }
     onChangeInputValue = (value) => {
-        let newValue = value;
         this.setState({
-            value: newValue
+            value: value
         })
+    }
+    onRemoveTodoList =()=>{
+        this.props.removeTodoList(this.props.todolistId)
     }
     render = () => {
         return (
             <div className={styles.todoList__header}>
+                <RemoveBtn onClick={this.onRemoveTodoList} className={styles['remove-task']}/>
                 <h1 className="todoList-header__title">{this.props.title}</h1>
                 <div className={styles.todoList__example} >Example:  <span >task::priority</span></div>
                 <AddNewItemForm onClick={this.onAddTaskClick}
