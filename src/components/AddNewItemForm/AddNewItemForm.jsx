@@ -7,7 +7,6 @@ class AddNewItemForm extends React.Component {
         let newInputValue = e.currentTarget.value
         this.props.onChange(newInputValue)
     }
-
     render() {
         return (
             <div className={styles.addNewItemForm}>

@@ -18,20 +18,11 @@ class TodoListFooter extends React.Component {
         this.props.changeFilter('Active')
     }
     onShowFiltersClick = () => {
-        this.setState(
-            {
-                isHidden: false
-            }
-        )
+        this.setState({isHidden: false})
     }
     onHideFiltersClick = () => {
-        this.setState(
-            {
-                isHidden: true
-            }
-        )
+        this.setState({isHidden: true})
     }
-
 
     render = () => {
         return (
@@ -50,7 +41,7 @@ class TodoListFooter extends React.Component {
                 </>
                 }
                 <Button onClick={this.state.isHidden ? this.onShowFiltersClick : this.onHideFiltersClick}
-                        value={ this.state.isHidden ? 'Show' : 'Hide'}
+                        value={this.state.isHidden ? 'Show' : 'Hide'}
                         active={this.props.filterValue === "hide"}/>
             </div>
         );

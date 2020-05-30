@@ -21,6 +21,7 @@ html, body, *::before, *::after {
 }
 
 .todoList {
+  border-radius: 4px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

@@ -2,88 +2,86 @@ import React from 'react';
 import './App.scss';
 import TodoList from "./components/TodoList/TodoList";
 import AddNewItemForm from "./components/AddNewItemForm/AddNewItemForm";
+import {connect} from "react-redux";
+import {
+    addNewTodoList, addTask, changeFilterValue, changeTask, removeTask, removeTodoList,
+    setNewTodoListName
+} from "./redux/appReducer";
 
 class App extends React.Component {
     componentDidMount() {
-        this.restoreState();
+        // this.restoreAppState();
     }
 
-    saveState = () => {
-        let stateAsString = JSON.stringify(this.state)
-        localStorage.setItem(`our-app-state`, stateAsString)
-    }
-    restoreState = () => {
-        let state = {
-            todoLists: [],
-            newTodoListName: ''
-        }
-        let stateAsString = localStorage.getItem(`our-app-state`)
-        if (stateAsString != null) {
-            state = JSON.parse(stateAsString)
-        }
-        if (state.todoLists.length !== 0) {
-            state.todoLists.map(todo => {
-                if(todo.id > this.newTodoListId){
-                    this.newTodoListId = todo.id
-                }
-            })
-        }
-        else {
-            this.newTodoListId = 0
-        }
-        this.setState(state);
-    }
-    newTodoListId = 0
-    state = {
-        todoLists: [],
-        newTodoListName: 'Clear TodoList'
-    }
-    addNewTodoList = () => {
-        let newTodoLIst = {
-            id: this.newTodoListId + 1,
-            title: this.state.newTodoListName
-        }
-        this.newTodoListId++
-        this.setState({todoLists: [...this.state.todoLists, newTodoLIst], newTodoListName: ''}, () => this.saveState())
-    }
+    // saveAppState = () => {
+    //     let stateAsString = JSON.stringify(initialState)
+    //     localStorage.setItem(`app-state`, stateAsString)
+    // }
+    // restoreAppState = () => {
+    //     let state = {
+    //         todoLists: [],
+    //         newTodoListName: ''
+    //     }
+    //     let stateAsString = localStorage.getItem(`our-app-state`)
+    //     if (stateAsString != null) {
+    //         state = JSON.parse(stateAsString)
+    //     }
+    //     if (state.todoLists.length !== 0) {
+    //         // eslint-disable-next-line
+    //         state.todoLists.map(todo => {
+    //             if (todo.id > this.newTodoListId) {
+    //                 this.newTodoListId = todo.id
+    //             }
+    //         })
+    //     } else {
+    //         this.newTodoListId = 0
+    //     }
+    //     this.setState(state);
+    // }
     changeNewTodoListName = (newName) => {
-        this.setState({newTodoListName: newName})
+        this.props.setNewTodoListName(newName)
     }
     onKeyPressInputValue = (e) => {
-        if (e.key === 'Enter') {
-            this.addNewTodoList()
-        }
-    }
-    removeTodoList =(todoListId) =>{
-        let newTodoLists = this.state.todoLists.filter(todo => todo.id !== todoListId)
-        this.setState({
-            todoLists: newTodoLists
-        },()=>{this.saveState()})
+        if (e.key === 'Enter') { this.props.addTodoList() }
     }
     render = () => {
-        window.state = this.state
         return (
             <div className="App">
-                <AddNewItemForm onClick={this.addNewTodoList}
+                <AddNewItemForm onClick={this.props.addNewTodoList}
                                 onChange={this.changeNewTodoListName}
                                 onKeyPress={this.onKeyPressInputValue}
                                 placeholder='Create new TodoList'
-                                value={this.state.newTodoListName}
+                                value={this.props.newTodoListName}
+                />
+                <div className='todoLists'>
+                    {this.props.todoLists.map(tl =>
+                        <TodoList todolistId={tl.id}
+                                  title={tl.title}
+                                  key={tl.id}
+                                  removeTodoList={this.props.removeTodoList}
+                                  removeTask={this.props.removeTask}
+                                  changeTask={this.props.changeTask}
+                                  addTask={this.props.addTask}
+                                  tasks={tl.tasks}
+                                  filterValue={tl.filterValue}
+                                  changeFilterValue={this.props.changeFilterValue}
+                        />)}
 
-                               />
-                               <div className='todoLists'>
-                                   {this.state.todoLists.map(tl => <TodoList id={tl.id}
-                                                                             title={tl.title}
-                                                                             key={tl.id}
-                                                                             removeTodoList={this.removeTodoList}
-                                   />)}
-
-                               </div>
+                </div>
             </div>
         );
     }
 }
 
+let mapStateToProps = (state) => {
+    return {
+        todoLists: state.app.todoLists,
+        newTodoListName: state.app.newTodoListName,
+    }
+}
 
-export default App;
+export default connect(mapStateToProps, {
+    addNewTodoList, setNewTodoListName,
+    removeTodoList, addTask, removeTask, changeTask, changeFilterValue
+})(App);
 

@@ -8,53 +8,30 @@ class TodoListHeader extends React.Component {
         error: false,
         value: ''
     }
-
     onAddTaskClick = () => {
         let taskText = this.state.value;
-        this.setState({
-            value: ''
-        })
-        let priority;
-        let text;
-        if (taskText.includes('::')) {
-            let index = taskText.lastIndexOf('::');
-            text = taskText.slice(0, index);
-            priority = taskText.substring(taskText.length, index + 2)
-        } else {
-            text = taskText
-            priority = 'low'
-        }
+        this.setState({   value: '' })
         if (taskText === '') {
-            this.setState({
-                error: true
-            })
+            this.setState({  error: true })
             alert('Please write the task name')
         } else {
-            this.props.addNewTask(text, priority)
-            this.setState({
-                error: false
-            })
+            this.props.addNewTask(taskText)
+            this.setState({   error: false  })
         }
     }
     onKeyPressInputValue = (e) => {
-        if (e.key === 'Enter') {
-            this.onAddTaskClick()
-        }
+        if (e.key === 'Enter') {    this.onAddTaskClick()  }
     }
     onChangeInputValue = (value) => {
-        this.setState({
-            value: value
-        })
+        this.setState({  value: value  })
     }
     onRemoveTodoList =()=>{
-        this.props.removeTodoList(this.props.todolistId)
-    }
+        this.props.removeTodoList(this.props.todolistId) }
     render = () => {
         return (
             <div className={styles.todoList__header}>
                 <RemoveBtn onClick={this.onRemoveTodoList} className={styles['remove-task']}/>
                 <h1 className="todoList-header__title">{this.props.title}</h1>
-                <div className={styles.todoList__example} >Example:  <span >task::priority</span></div>
                 <AddNewItemForm onClick={this.onAddTaskClick}
                                 onChange={this.onChangeInputValue}
                                 onKeyPress={this.onKeyPressInputValue}
