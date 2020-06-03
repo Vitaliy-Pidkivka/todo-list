@@ -3,7 +3,7 @@ import styles from './TodoListTask.module.scss';
 import RemoveBtn from "../../shared/RemoveBtn/RemoveBtn";
 
 
-class TodoListTask extends React.Component {
+class TodoListTask extends React.PureComponent {
     state = {
         editMode: false,
     }
@@ -23,7 +23,6 @@ class TodoListTask extends React.Component {
         this.props.removeTask(this.props.todolistId, this.props.task.id)
     }
     render = () => {
-        console.log(this.props)
         return (
             <div className={`${styles.task} ${this.props.task.isDone && styles.done}`}
                  onDoubleClick={this.activateEditMode}
@@ -33,7 +32,9 @@ class TodoListTask extends React.Component {
                         <input className={`${styles['checkbox']}`}
                                onChange={this.onIsDoneChanged}
                                type="checkbox"
-                               checked={this.props.task.isDone}/>
+                               checked={this.props.task.isDone}
+                        />
+
                         <span>{this.props.task.id +
                         1}: {this.props.task.title}</span><span> - priority: {this.props.task.priority}</span>
                         <RemoveBtn onClick={this.onRemoveTask}/>
